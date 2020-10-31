@@ -18,13 +18,10 @@ type Entry =
   | DropboxSearchResult
   | SlackSearchResult
   | TweetSearchResult;
+type Result = Entry[];
 
-function isCalendar(datatype: DataType): datatype is "calendar" {
-  return datatype === "calendar";
-}
-
-export default function filterDataByWord(
-  word: string,
+export default function filterDataBySearchTerm(
+  searchTerm: string,
   dataType: DataType
 ): any[] {
   const dataMap = {
@@ -36,9 +33,13 @@ export default function filterDataByWord(
   };
 
   const unfilteredData = dataMap[dataType];
-  const result = (unfilteredData as Entry[]).filter((entry: Entry) =>
-    entry["matching_terms"].includes(word)
-  );
+  const words = searchTerm.split(" ");
+  const result: Result = words.reduce((acc: Entry[], word: string) => {
+    const filtered = (unfilteredData as Entry[]).filter((entry: Entry) =>
+      entry["matching_terms"].includes(word)
+    );
+    return [...acc, ...filtered];
+  }, []);
 
   return result;
 }
