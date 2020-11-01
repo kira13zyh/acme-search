@@ -40,3 +40,14 @@ export type TweetSearchResult = {
   timestamp: string;
   matching_terms: string[];
 };
+
+export type DataType = "calendar" | "contacts" | "dropbox" | "slack" | "tweet";
+
+export type Entry =
+  | CalendarSearchResult
+  | ContactsSearchResult
+  | DropboxSearchResult
+  | SlackSearchResult
+  | TweetSearchResult;
+
+export type Result = Entry[];

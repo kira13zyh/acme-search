@@ -10,6 +10,7 @@ import {
   SlackSearchResult,
   TweetSearchResult,
 } from "./types";
+import ResultList from "./components/ResultList";
 
 function App() {
   const [searchTerm, onChangeSearchTerm] = React.useState("");
@@ -31,15 +32,15 @@ function App() {
 
   function findInfo(searchTerm: string) {
     const matchCalendar = filterDataBySearchTerm(searchTerm, "calendar");
-    setCalendarSearchResult([...matchCalendar]);
+    setCalendarSearchResult(matchCalendar);
     const matchContacts = filterDataBySearchTerm(searchTerm, "contacts");
-    setContactsSearchResult((csrs) => [...csrs, ...matchContacts]);
+    setContactsSearchResult(matchContacts);
     const matchDropbox = filterDataBySearchTerm(searchTerm, "dropbox");
-    setDropboxSearchResult((dsrs) => [...dsrs, ...matchDropbox]);
+    setDropboxSearchResult(matchDropbox);
     const matchSlack = filterDataBySearchTerm(searchTerm, "slack");
-    setSlackSearchResult((ssrs) => [...ssrs, ...matchSlack]);
+    setSlackSearchResult(matchSlack);
     const matchTweet = filterDataBySearchTerm(searchTerm, "tweet");
-    setTweetSearchResult((tsrs) => [...tsrs, ...matchTweet]);
+    setTweetSearchResult(matchTweet);
   }
 
   return (
@@ -57,16 +58,28 @@ function App() {
         >
           Search
         </Button>
-        <h2>Calendar</h2>
-        <p>{calendarSearchResult[0] ? calendarSearchResult[0].date : "none"}</p>
-        <h2>Contacts</h2>
-        <p>{contactsSearchResult[0] ? contactsSearchResult[0].name : "none"}</p>
-        <h2>Dropbox</h2>
-        <p>{dropboxSearchResult[0] ? dropboxSearchResult[0].title : "none"}</p>
-        <h2>Slack</h2>
-        <p>{slackSearchResult[0] ? slackSearchResult[0].message : "none"}</p>
-        <h2>Tweet</h2>
-        <p>{tweetSearchResult[0] ? tweetSearchResult[0].user : "none"}</p>
+        <div>
+          <ResultList
+            dataType={"calendar"}
+            searchResult={calendarSearchResult}
+          ></ResultList>
+          <ResultList
+            dataType={"contacts"}
+            searchResult={contactsSearchResult}
+          ></ResultList>
+          <ResultList
+            dataType={"dropbox"}
+            searchResult={dropboxSearchResult}
+          ></ResultList>
+          <ResultList
+            dataType={"slack"}
+            searchResult={slackSearchResult}
+          ></ResultList>
+          <ResultList
+            dataType={"tweet"}
+            searchResult={calendarSearchResult}
+          ></ResultList>
+        </div>
       </header>
     </div>
   );
