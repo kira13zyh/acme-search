@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import Input from "@material-ui/core/Input/Input";
+import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button/Button";
 import filterDataBySearchTerm from "./filterDataBySearchTerm";
 import {
@@ -11,9 +12,12 @@ import {
   TweetSearchResult,
 } from "./types";
 import ResultList from "./components/ResultList";
+import { makeStyles } from "@material-ui/core";
 
 function App() {
-  const [searchTerm, onChangeSearchTerm] = React.useState("");
+  // State Management
+  const [searchTerm, onChangeSearchTerm] = React.useState<string>("");
+  const [currentSearchTerm, setCurrentSearchTerm] = React.useState<string>("");
   const [calendarSearchResult, setCalendarSearchResult] = React.useState<
     CalendarSearchResult[]
   >([]);
@@ -30,7 +34,11 @@ function App() {
     TweetSearchResult[]
   >([]);
 
+  // Style Management
+  const classes = useStyles();
+
   function findInfo(searchTerm: string) {
+    setCurrentSearchTerm(searchTerm);
     const matchCalendar = filterDataBySearchTerm(searchTerm, "calendar");
     setCalendarSearchResult(matchCalendar);
     const matchContacts = filterDataBySearchTerm(searchTerm, "contacts");
@@ -46,11 +54,17 @@ function App() {
   return (
     <div className='App'>
       <header className='App-header'>
-        <h1>Foo</h1>
-        <Input
+        <h3 style={{ margin: "15" }}>Foo.com</h3>
+        <TextField
           type='text'
           onChange={(event) => onChangeSearchTerm(event.target.value)}
-        ></Input>
+          style={{
+            width: "50%",
+            backgroundColor: "white",
+            margin: "20px",
+          }}
+          variant='outlined'
+        ></TextField>
         <Button
           variant='contained'
           color='primary'
@@ -58,7 +72,9 @@ function App() {
         >
           Search
         </Button>
-        <div>
+      </header>
+      {currentSearchTerm && (
+        <div className={classes.row}>
           <ResultList
             dataType={"calendar"}
             searchResult={calendarSearchResult}
@@ -77,12 +93,21 @@ function App() {
           ></ResultList>
           <ResultList
             dataType={"tweet"}
-            searchResult={calendarSearchResult}
+            searchResult={tweetSearchResult}
           ></ResultList>
         </div>
-      </header>
+      )}
     </div>
   );
 }
 
 export default App;
+
+const useStyles = makeStyles({
+  row: {
+    display: "flex",
+    flexWrap: "wrap",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+});

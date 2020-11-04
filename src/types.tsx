@@ -4,6 +4,7 @@ export type CalendarSearchResult = {
   invitees: string;
   matching_terms: string[];
   date: string;
+  type: "calendar";
 };
 
 export type ContactsSearchResult = {
@@ -14,6 +15,7 @@ export type ContactsSearchResult = {
   phones: string[];
   matching_terms: string[];
   last_contact: string;
+  type: "contacts";
 };
 
 export type DropboxSearchResult = {
@@ -23,6 +25,7 @@ export type DropboxSearchResult = {
   shared_with: string[];
   matching_terms: string[];
   created: string;
+  type: "dropbox";
 };
 
 export type SlackSearchResult = {
@@ -32,6 +35,7 @@ export type SlackSearchResult = {
   message: string;
   timestamp: string;
   matching_terms: string[];
+  type: "slack";
 };
 
 export type TweetSearchResult = {
@@ -39,6 +43,7 @@ export type TweetSearchResult = {
   message: string;
   timestamp: string;
   matching_terms: string[];
+  type: "tweet";
 };
 
 export type DataType = "calendar" | "contacts" | "dropbox" | "slack" | "tweet";

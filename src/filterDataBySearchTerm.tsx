@@ -1,8 +1,8 @@
-import { calendar } from "./data/calendar.json";
-import { contacts } from "./data/contacts.json";
-import { dropbox } from "./data/dropbox.json";
-import { slack } from "./data/slack.json";
-import { tweet } from "./data/tweet.json";
+import { calendar as calendarRaw } from "./data/calendar.json";
+import { contacts as contactsRaw } from "./data/contacts.json";
+import { dropbox as dropboxRaw } from "./data/dropbox.json";
+import { slack as slackRaw } from "./data/slack.json";
+import { tweet as tweetRaw } from "./data/tweet.json";
 import {
   CalendarSearchResult,
   ContactsSearchResult,
@@ -10,6 +10,12 @@ import {
   SlackSearchResult,
   TweetSearchResult,
 } from "./types";
+
+const calendar = calendarRaw.map((c) => ({ ...c, type: "calendar" }));
+const contacts = contactsRaw.map((c) => ({ ...c, type: "contacts" }));
+const dropbox = dropboxRaw.map((d) => ({ ...d, type: "dropbox" }));
+const slack = slackRaw.map((s) => ({ ...s, type: "slack" }));
+const tweet = tweetRaw.map((t) => ({ ...t, type: "tweet" }));
 
 type DataType = "calendar" | "contacts" | "dropbox" | "slack" | "tweet";
 type Entry =
