@@ -58,6 +58,12 @@ function App() {
         <TextField
           type='text'
           onChange={(event) => onChangeSearchTerm(event.target.value)}
+          onKeyPress={(ev) => {
+            if (ev.key === "Enter") {
+              findInfo(searchTerm);
+              ev.preventDefault();
+            }
+          }}
           style={{
             width: "50%",
             backgroundColor: "white",
