@@ -17,7 +17,7 @@ export default function DropboxItem({ search }: DropboxItemProps) {
   const collaborators = shared_with.map((person: string) => {
     return (
       <div>
-        <text>{person}</text>
+        <text style={{ overflowWrap: "break-word" }}>{person}</text>
       </div>
     );
   });
@@ -28,7 +28,15 @@ export default function DropboxItem({ search }: DropboxItemProps) {
           <text style={{ fontWeight: "bold" }}>{title}</text>
         </div>
         <div>
-          <text style={{ fontSize: "14px", color: "grey" }}>{path}</text>
+          <text
+            style={{
+              fontSize: "14px",
+              color: "grey",
+              overflowWrap: "break-word",
+            }}
+          >
+            {path}
+          </text>
         </div>
         <Accordion style={{ marginTop: "10px", marginBottom: "10px" }}>
           <AccordionSummary
@@ -36,11 +44,15 @@ export default function DropboxItem({ search }: DropboxItemProps) {
             aria-controls='expandCollaboratorList'
           >
             <div>
-              <text>{numCollaborators} collaborators</text>
+              <text style={{ fontSize: "14px" }}>
+                {numCollaborators} collaborator{numCollaborators > 1 ? "s" : ""}
+              </text>
             </div>
           </AccordionSummary>
-          <AccordionDetails>
-            <div style={{ flexDirection: "column" }}>{collaborators}</div>
+          <AccordionDetails
+            style={{ flexDirection: "column", flexWrap: "wrap" }}
+          >
+            {collaborators}
           </AccordionDetails>
         </Accordion>
         <div>

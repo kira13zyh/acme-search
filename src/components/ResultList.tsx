@@ -63,25 +63,30 @@ export default function ResultList({
   });
 
   return (
-    <Card className={classes.card}>
-      <CardContent>
-        <text className={classes.categoryTitle}>{dataType}</text>
-        <List>
-          <ListItem
-            style={{ flexDirection: "column", paddingLeft: 0, paddingRight: 0 }}
-          >
-            {eventToDisplay}
-          </ListItem>
-        </List>
-      </CardContent>
-    </Card>
+    <div>
+      {eventToDisplay && (
+        <Card>
+          <CardContent>
+            <text className={classes.categoryTitle}>{dataType}</text>
+            <List>
+              <ListItem
+                style={{
+                  flexDirection: "column",
+                  paddingLeft: 0,
+                  paddingRight: 0,
+                }}
+              >
+                {eventToDisplay}
+              </ListItem>
+            </List>
+          </CardContent>
+        </Card>
+      )}
+    </div>
   );
 }
 
 const useStyles = makeStyles({
-  card: {
-    maxWidth: "20%",
-  },
   title: {
     fontSize: 20,
     fontWeight: "bold",

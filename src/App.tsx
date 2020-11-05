@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.css";
-import Input from "@material-ui/core/Input/Input";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button/Button";
 import filterDataBySearchTerm from "./filterDataBySearchTerm";
@@ -15,16 +14,6 @@ import ResultList from "./components/ResultList";
 import { makeStyles } from "@material-ui/core";
 
 function App() {
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      if (currentSearchTerm) {
-        findInfo(searchTerm);
-      }
-      console.log("This will run every three seconds!");
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
-
   // State Management
   const [searchTerm, onChangeSearchTerm] = React.useState<string>("");
   const [currentSearchTerm, setCurrentSearchTerm] = React.useState<string>("");
@@ -43,6 +32,17 @@ function App() {
   const [tweetSearchResult, setTweetSearchResult] = React.useState<
     TweetSearchResult[]
   >([]);
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      console.log(currentSearchTerm);
+      if (currentSearchTerm) {
+        findInfo(searchTerm);
+      }
+      console.log("This will run every three seconds!");
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [currentSearchTerm]);
 
   // Style Management
   const classes = useStyles();
@@ -91,26 +91,36 @@ function App() {
       </header>
       {currentSearchTerm && (
         <div className={classes.row}>
-          <ResultList
-            dataType={"calendar"}
-            searchResult={calendarSearchResult}
-          ></ResultList>
-          <ResultList
-            dataType={"contacts"}
-            searchResult={contactsSearchResult}
-          ></ResultList>
-          <ResultList
-            dataType={"dropbox"}
-            searchResult={dropboxSearchResult}
-          ></ResultList>
-          <ResultList
-            dataType={"slack"}
-            searchResult={slackSearchResult}
-          ></ResultList>
-          <ResultList
-            dataType={"tweet"}
-            searchResult={tweetSearchResult}
-          ></ResultList>
+          {calendarSearchResult.length != 0 && (
+            <ResultList
+              dataType={"calendar"}
+              searchResult={calendarSearchResult}
+            ></ResultList>
+          )}
+          {contactsSearchResult.length != 0 && (
+            <ResultList
+              dataType={"contacts"}
+              searchResult={contactsSearchResult}
+            ></ResultList>
+          )}
+          {dropboxSearchResult.length != 0 && (
+            <ResultList
+              dataType={"dropbox"}
+              searchResult={dropboxSearchResult}
+            ></ResultList>
+          )}
+          {slackSearchResult.length != 0 && (
+            <ResultList
+              dataType={"slack"}
+              searchResult={slackSearchResult}
+            ></ResultList>
+          )}
+          {tweetSearchResult.length != 0 && (
+            <ResultList
+              dataType={"tweet"}
+              searchResult={tweetSearchResult}
+            ></ResultList>
+          )}
         </div>
       )}
     </div>
