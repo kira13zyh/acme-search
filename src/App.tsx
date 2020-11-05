@@ -106,8 +106,8 @@ export default App;
 const useStyles = makeStyles({
   row: {
     display: "flex",
-    flexWrap: "wrap",
+    flexWrap: "nowrap",
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-between",
   },
 });

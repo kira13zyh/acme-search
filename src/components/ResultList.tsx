@@ -67,7 +67,9 @@ export default function ResultList({
       <CardContent>
         <text className={classes.categoryTitle}>{dataType}</text>
         <List>
-          <ListItem style={{ flexDirection: "column" }}>
+          <ListItem
+            style={{ flexDirection: "column", paddingLeft: 0, paddingRight: 0 }}
+          >
             {eventToDisplay}
           </ListItem>
         </List>
@@ -78,17 +80,7 @@ export default function ResultList({
 
 const useStyles = makeStyles({
   card: {
-    maxWidth: "45%",
-    margin: "10px",
-    padding: "15px",
-  },
-  item: {
-    width: "50%",
-    display: "flex",
-    alignSelf: "flex-start",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    fontSize: 14,
+    maxWidth: "20%",
   },
   title: {
     fontSize: 20,
