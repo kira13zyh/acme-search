@@ -1,3 +1,4 @@
+import React from "react";
 import { calendar as calendarRaw } from "./data/calendar.json";
 import { contacts as contactsRaw } from "./data/contacts.json";
 import { dropbox as dropboxRaw } from "./data/dropbox.json";
@@ -10,12 +11,6 @@ import {
   SlackSearchResult,
   TweetSearchResult,
 } from "./types";
-
-const calendar = calendarRaw.map((c) => ({ ...c, type: "calendar" }));
-const contacts = contactsRaw.map((c) => ({ ...c, type: "contacts" }));
-const dropbox = dropboxRaw.map((d) => ({ ...d, type: "dropbox" }));
-const slack = slackRaw.map((s) => ({ ...s, type: "slack" }));
-const tweet = tweetRaw.map((t) => ({ ...t, type: "tweet" }));
 
 type DataType = "calendar" | "contacts" | "dropbox" | "slack" | "tweet";
 type Entry =
@@ -30,6 +25,13 @@ export default function filterDataBySearchTerm(
   searchTerm: string,
   dataType: DataType
 ): any[] {
+  // Add type to the raw data
+  const calendar = calendarRaw.map((c) => ({ ...c, type: "calendar" }));
+  const contacts = contactsRaw.map((c) => ({ ...c, type: "contacts" }));
+  const dropbox = dropboxRaw.map((d) => ({ ...d, type: "dropbox" }));
+  const slack = slackRaw.map((s) => ({ ...s, type: "slack" }));
+  const tweet = tweetRaw.map((t) => ({ ...t, type: "tweet" }));
+
   const dataMap = {
     calendar,
     contacts,

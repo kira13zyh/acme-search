@@ -15,6 +15,16 @@ import ResultList from "./components/ResultList";
 import { makeStyles } from "@material-ui/core";
 
 function App() {
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      if (currentSearchTerm) {
+        findInfo(searchTerm);
+      }
+      console.log("This will run every three seconds!");
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   // State Management
   const [searchTerm, onChangeSearchTerm] = React.useState<string>("");
   const [currentSearchTerm, setCurrentSearchTerm] = React.useState<string>("");
