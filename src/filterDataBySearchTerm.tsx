@@ -1,4 +1,3 @@
-import React from "react";
 import { calendar as calendarRaw } from "./data/calendar.json";
 import { contacts as contactsRaw } from "./data/contacts.json";
 import { dropbox as dropboxRaw } from "./data/dropbox.json";
@@ -11,6 +10,7 @@ import {
   SlackSearchResult,
   TweetSearchResult,
 } from "./types";
+import _ from "lodash";
 
 type DataType = "calendar" | "contacts" | "dropbox" | "slack" | "tweet";
 type Entry =
@@ -32,6 +32,7 @@ export default function filterDataBySearchTerm(
   const slack = slackRaw.map((s) => ({ ...s, type: "slack" }));
   const tweet = tweetRaw.map((t) => ({ ...t, type: "tweet" }));
 
+  // Map name to processed data
   const dataMap = {
     calendar,
     contacts,
@@ -49,5 +50,5 @@ export default function filterDataBySearchTerm(
     return [...acc, ...filtered];
   }, []);
 
-  return result;
+  return _.uniq(result);
 }

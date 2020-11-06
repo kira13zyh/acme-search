@@ -60,12 +60,13 @@ export default function ResultList({
     } else if (isTweetEntry(search)) {
       return <TweetItem search={search}></TweetItem>;
     }
+    return null;
   });
 
   return (
     <div>
       {eventToDisplay && (
-        <Card>
+        <Card className={classes.card}>
           <CardContent>
             <text className={classes.categoryTitle}>{dataType}</text>
             <List>
@@ -87,6 +88,10 @@ export default function ResultList({
 }
 
 const useStyles = makeStyles({
+  card: {
+    maxWidth: 240,
+    margin: 5,
+  },
   title: {
     fontSize: 20,
     fontWeight: "bold",

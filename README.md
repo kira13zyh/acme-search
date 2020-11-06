@@ -15,5 +15,8 @@ To test this feature, run the applciation using `npm start`, make a search query
 
 ## UX Considerations
 
-- If no result is found in a particular category, the category will not appear.
+- If no result is found in a particular category, the category does not appear.
+- If no result is found in every category, the text "no result" is displayed.
 - To search, one can press "Enter" instead of pressing the search button.
+- Duplicated search results from multiple queries are omitted. For example. if one make a search query "acme alice", the overlapping search results will only show up once.
+- Used flexbox to arrange the results so that the web app is responsive to screen-size changes.

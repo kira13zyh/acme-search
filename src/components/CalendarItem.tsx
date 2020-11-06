@@ -1,5 +1,5 @@
 import React from "react";
-import { CalendarSearchResult, Entry } from "../types";
+import { CalendarSearchResult } from "../types";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Accordion from "@material-ui/core/Accordion";

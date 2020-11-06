@@ -12,6 +12,7 @@ import {
 } from "./types";
 import ResultList from "./components/ResultList";
 import { makeStyles } from "@material-ui/core";
+import _ from "lodash";
 
 function App() {
   // State Management
@@ -37,9 +38,8 @@ function App() {
     const interval = setInterval(() => {
       console.log(currentSearchTerm);
       if (currentSearchTerm) {
-        findInfo(searchTerm);
+        findInfo(currentSearchTerm);
       }
-      console.log("This will run every three seconds!");
     }, 3000);
     return () => clearInterval(interval);
   }, [currentSearchTerm]);
@@ -60,6 +60,14 @@ function App() {
     const matchTweet = filterDataBySearchTerm(searchTerm, "tweet");
     setTweetSearchResult(matchTweet);
   }
+
+  const noResult =
+    currentSearchTerm &&
+    _.isEmpty(calendarSearchResult) &&
+    _.isEmpty(contactsSearchResult) &&
+    _.isEmpty(dropboxSearchResult) &&
+    _.isEmpty(slackSearchResult) &&
+    _.isEmpty(tweetSearchResult);
 
   return (
     <div className='App'>
@@ -89,38 +97,47 @@ function App() {
           Search
         </Button>
       </header>
-      {currentSearchTerm && (
+      {noResult && (
+        <div style={{ margin: 30 }}>
+          <text className={classes.noSearch}>No Result Found</text>
+        </div>
+      )}
+      {currentSearchTerm ? (
         <div className={classes.row}>
-          {calendarSearchResult.length != 0 && (
+          {calendarSearchResult.length !== 0 && (
             <ResultList
               dataType={"calendar"}
               searchResult={calendarSearchResult}
             ></ResultList>
           )}
-          {contactsSearchResult.length != 0 && (
+          {contactsSearchResult.length !== 0 && (
             <ResultList
               dataType={"contacts"}
               searchResult={contactsSearchResult}
             ></ResultList>
           )}
-          {dropboxSearchResult.length != 0 && (
+          {dropboxSearchResult.length !== 0 && (
             <ResultList
               dataType={"dropbox"}
               searchResult={dropboxSearchResult}
             ></ResultList>
           )}
-          {slackSearchResult.length != 0 && (
+          {slackSearchResult.length !== 0 && (
             <ResultList
               dataType={"slack"}
               searchResult={slackSearchResult}
             ></ResultList>
           )}
-          {tweetSearchResult.length != 0 && (
+          {tweetSearchResult.length !== 0 && (
             <ResultList
               dataType={"tweet"}
               searchResult={tweetSearchResult}
             ></ResultList>
           )}
+        </div>
+      ) : (
+        <div style={{ margin: 30 }}>
+          <text className={classes.noSearch}>Start Searching Today</text>
         </div>
       )}
     </div>
@@ -132,8 +149,15 @@ export default App;
 const useStyles = makeStyles({
   row: {
     display: "flex",
-    flexWrap: "nowrap",
+    flexWrap: "wrap",
     flexDirection: "row",
-    justifyContent: "space-between",
+    alignItems: "flex-start",
+    alignContent: "space-around",
+    justifyContent: "flex-start",
+  },
+  noSearch: {
+    fontSize: 30,
+    justifyContent: "center",
+    color: "grey",
   },
 });
