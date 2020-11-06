@@ -1,6 +1,10 @@
 # Acme Search Project
 
 This is a simplified personalized search engine web app with functions similar to Alfred and Apple Spotlight. Built with love by Emily Hill using React + Google Material UI.
+My approach to this project included 3 phases:
+1. Creating sketches and mocks of the UI;
+2. Creating the React project and choosing a design system;
+3. Polishing the application to properly format and develop advanced feature.
 
 ## `npm start`
 
